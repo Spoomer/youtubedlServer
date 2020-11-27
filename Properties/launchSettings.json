@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "youtubedlServer": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
