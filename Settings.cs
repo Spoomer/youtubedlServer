@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.Json;
 using System.IO;
 using System.Numerics;
+using System.Collections.Generic;
 
 namespace youtubedlServer
 {
@@ -13,6 +14,8 @@ namespace youtubedlServer
         public bool MailUseSSL { get; set; }
         public string MailUser { get; set; }
         public string ShiftedMailPassword { get; set; }
+
+        public List<string> AcceptedMailAddresses { get; set; } = new List<string>();
 
         public static Settings CreateSettings()
         {
@@ -52,15 +55,24 @@ namespace youtubedlServer
             
             settings.ShiftPassword((string)Console.ReadLine());
 
+            Console.WriteLine("Which Sender-Mail-Addresses are allowed for getting commands? " +
+                "Paste the Mail-Address and press after each enter! After you are finished, type 'end'");
+            string response;
+            while((response=Console.ReadLine())!="end")
+            {
+                settings.AcceptedMailAddresses.Add(response);
+            }
+            
 
-            File.WriteAllText("settings.json",settings.ToString()); ;
+            File.WriteAllText("settings.json",settings.ToString());
+
             return settings;
 
         }
 
         public static Settings GetSettings()
         {
-            return JsonSerializer.Deserialize<Settings>("settings.json");
+            return JsonSerializer.Deserialize<Settings>(File.ReadAllText("settings.json"));
         }
 
 

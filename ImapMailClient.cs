@@ -40,6 +40,7 @@ namespace youtubedlServer
             {
                 return null;
             }
+            Client.Inbox.Open(FolderAccess.ReadWrite);
             List<MimeMessage> messages = new List<MimeMessage>();
             foreach (var uid in Client.Inbox.Search(SearchQuery.NotSeen))
             {

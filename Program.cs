@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MimeKit;
+using System;
 using System.IO;
+using System.Linq;
 
 namespace youtubedlServer
 {
@@ -25,11 +27,13 @@ namespace youtubedlServer
                 return;
             }
             var mails = imapMailClient.GetMails();
-            foreach (var mail in mails)
-            {
-                Console.WriteLine(mail.Body.ContentType.MimeType);
-            }
             imapMailClient.Disconnect();
+
+            MailParser mailParser = new MailParser();
+            var commands = mailParser.GetContent(mails,settings.AcceptedMailAddresses);
+
+            CommandParser commandParser = new CommandParser();
+            commandParser.ParseCommand(commands);
 
         }
     }
