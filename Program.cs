@@ -1,7 +1,5 @@
-﻿using MimeKit;
-using System;
+﻿using System;
 using System.IO;
-using System.Linq;
 
 namespace youtubedlServer
 {

@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace youtubedlServer
 {
@@ -16,11 +14,11 @@ namespace youtubedlServer
             {
                 if (acceptedMailAddresses.Contains(mail.From.Mailboxes.First().Address))
                 {
-                    Console.WriteLine(mail.Body.ContentType.MimeType);
                     using (var iter = new MimeIterator(mail))
                     {
                         while (iter.MoveNext())
                         {
+                            Console.WriteLine(iter.Current.ContentType.MimeType);
                             var textpart = iter.Current as TextPart;
                             if (textpart != null)
                             {
