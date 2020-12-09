@@ -9,6 +9,7 @@ namespace youtubedlServer
     {
         static void Main(string[] args)
         {
+            Directory.SetCurrentDirectory(AppContext.BaseDirectory);
             Settings settings;
             if (!File.Exists("settings.json"))
             {
@@ -32,7 +33,7 @@ namespace youtubedlServer
             MailParser mailParser = new MailParser();
             var commands = mailParser.GetContent(mails,settings.AcceptedMailAddresses);
 
-            CommandParser commandParser = new CommandParser();
+            CommandParser commandParser = new CommandParser(settings);
             commandParser.ParseCommand(commands);
 
         }

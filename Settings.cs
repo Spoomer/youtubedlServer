@@ -17,6 +17,8 @@ namespace youtubedlServer
 
         public List<string> AcceptedMailAddresses { get; set; } = new List<string>();
 
+        public string ExportFolder { get; set; }
+
         public static Settings CreateSettings()
         {
             Settings settings = new Settings();
@@ -62,7 +64,8 @@ namespace youtubedlServer
             {
                 settings.AcceptedMailAddresses.Add(response);
             }
-            
+            Console.WriteLine("Export folder path:");
+            settings.ExportFolder = Console.ReadLine();
 
             File.WriteAllText("settings.json",settings.ToString());
 
